@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">SearchFilm</string>
+    <string name="app_name">LavenderFilm</string>
+    <string name="app_desc">Поиск фильмов</string>
+    <string name="menu">Меню</string>
+    <string name="favorites">Избранное</string>
+    <string name="watch_later">Посмотреть позже</string>
+    <string name="selections">Подборки</string>
+    <string name="settings">Настройки</string>
+    <string name="resource">Постеры взяты с сайта https://dzen.ru/a/Y7KoTBtNdHLy-BVF</string>
 </resources>
