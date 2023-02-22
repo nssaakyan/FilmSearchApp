@@ -2,10 +2,11 @@
 <resources>
 
     <style name="MyButton">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/rectangle</item>
         <item name="android:textColor">@color/DarkBlue</item>
         <item name="android:textAppearance">@style/TextShadow</item>
         <item name="android:textSize">@dimen/text_menu_size</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:radius">16dp</item>
     </style>
 </resources>
