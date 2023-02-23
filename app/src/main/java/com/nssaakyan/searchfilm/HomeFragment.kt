@@ -38,15 +38,15 @@ class HomeFragment : Fragment() {
                     (requireActivity() as MainActivity).launchDetailsFragment(film)
                 }
             })
-        //Присваиваем адаптер
-        adapter = filmsAdapter
-        //Присвои layoutmanager
-        layoutManager = LinearLayoutManager(requireContext())
-        //Применяем декоратор для отступов
-        val decorator = TopSpacingItemDecoration(8)
-        addItemDecoration(decorator)
-    }
+            //Присваиваем адаптер
+            adapter = filmsAdapter
+            //Присвои layoutmanager
+            layoutManager = LinearLayoutManager(requireContext())
+            //Применяем декоратор для отступов
+            val decorator = TopSpacingItemDecoration(8)
+            addItemDecoration(decorator)
+        }
     //Кладем нашу БД в RV
     filmsAdapter.addItems(filmsDataBase)
-}
+    }
 }

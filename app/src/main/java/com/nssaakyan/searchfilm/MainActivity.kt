@@ -1,8 +1,6 @@
 package com.nssaakyan.searchfilm
 
 import android.os.Bundle
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,16 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Анимация Лаванда
-        val animationImage: Animation = AnimationUtils.loadAnimation(this, R.anim.lavender_anim)
-        val animationText: Animation = AnimationUtils.loadAnimation(this, R.anim.text_anim)
-        image.startAnimation(animationImage)
-        textView.startAnimation(animationText)
-
-        image.setOnClickListener {
-            Toast.makeText(this, R.string.good_day, Toast.LENGTH_SHORT).show()
-        }
+        supportActionBar?.hide()
 
         bottom_navigation.setOnItemSelectedListener() {
 
@@ -65,5 +54,26 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_placeholder, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    private var backPressed = 0L
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed()
+                finish()
+            } else {
+                Toast.makeText(baseContext, R.string.exit_dialog, Toast.LENGTH_SHORT).show()
+            }
+            backPressed = System.currentTimeMillis()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    companion object {
+        const val TIME_INTERVAL = 2000
     }
 }
