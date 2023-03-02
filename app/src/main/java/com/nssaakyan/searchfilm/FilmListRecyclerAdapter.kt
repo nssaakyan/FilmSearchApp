@@ -33,7 +33,7 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount() = items.size
 
-    fun addItems(list: List<Film>) {
+    fun addItems(list: MutableList<Film>) {
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()

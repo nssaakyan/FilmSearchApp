@@ -16,7 +16,11 @@ class MainActivity : AppCompatActivity() {
 
             when (it.itemId) {
                 R.id.favorites -> {
-                    Toast.makeText(this, R.string.favorites, Toast.LENGTH_SHORT).show()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, FavoritesFragment())
+                        .addToBackStack(null)
+                        .commit()
                     true
                 }
                 R.id.watch_later -> {
@@ -57,10 +61,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var backPressed = 0L
+    private val BACK_STACK_COUNT = 1
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount == 1) {
+        if (supportFragmentManager.backStackEntryCount == BACK_STACK_COUNT) {
             if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
                 super.onBackPressed()
                 finish()
