@@ -1,12 +1,14 @@
 package com.nssaakyan.searchfilm
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 class HomeFragment : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
@@ -32,6 +34,34 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        search_view.setOnClickListener {
+            search_view.isIconified = false
+        }
+
+        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            //Этот метод отрабатывает при нажатии кнопки "поиск" на софт клавиатуре
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+            //Этот метод отрабатывает на каждое изменения текста
+            override fun onQueryTextChange(newText: String): Boolean {
+                //Если ввод пуст то вставляем в адаптер всю БД
+                if (newText.isEmpty()) {
+                    filmsAdapter.addItems(filmsDataBase as MutableList<Film>)
+                    return true
+                }
+                //Фильтруем список на поиск подходящих сочетаний
+                val result = filmsDataBase.filter {
+                    //Чтобы все работало правильно, нужно и запрос, и имя фильма приводить к нижнему регистру
+                    requireContext().resources.getString(it.title).lowercase().startsWith(newText.lowercase())
+                }
+                //Добавляем в адаптер
+                filmsAdapter.addItems(result as MutableList<Film>)
+                return true
+            }
+        })
+
+
         main_recycler.apply {
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
                 override fun click(film: Film) {
@@ -47,6 +77,6 @@ class HomeFragment : Fragment() {
             addItemDecoration(decorator)
         }
     //Кладем нашу БД в RV
-    filmsAdapter.addItems(filmsDataBase)
+    filmsAdapter.addItems(filmsDataBase as MutableList<Film>)
     }
 }
