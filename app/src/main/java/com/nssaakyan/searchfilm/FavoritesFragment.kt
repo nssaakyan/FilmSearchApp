@@ -29,23 +29,21 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Получаем список при транзакции фрагмента
-        favorites_recycler
-            .apply {
-                filmsAdapter =
-                    FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
-                        override fun click(film: Film) {
-                            (requireActivity() as MainActivity).launchDetailsFragment(film)
-                        }
-                    })
-                //Присваиваем адаптер
-                adapter = filmsAdapter
-                //Присвои layoutmanager
-                layoutManager = LinearLayoutManager(requireContext())
-                //Применяем декоратор для отступов
-                val decorator = TopSpacingItemDecoration(8)
-                addItemDecoration(decorator)
-            }
+
+        favorites_recycler.apply {
+            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
+                override fun click(film: Film) {
+                    (requireActivity() as MainActivity).launchDetailsFragment(film)
+                }
+            })
+            //Присваиваем адаптер
+            adapter = filmsAdapter
+            //Присвои layoutmanager
+            layoutManager = LinearLayoutManager(requireContext())
+            //Применяем декоратор для отступов
+            val decorator = TopSpacingItemDecoration(8)
+            addItemDecoration(decorator)
+        }
         //Кладем нашу БД в RV
         filmsAdapter.addItems(favoritesList as MutableList<Film>)
     }

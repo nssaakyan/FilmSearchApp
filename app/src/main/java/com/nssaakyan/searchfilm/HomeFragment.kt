@@ -11,18 +11,11 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.transition.Scene
-import android.transition.Transition
-import android.transition.Slide
-import android.transition.TransitionSet
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.merge_home_screen_content.*
-
 
 class HomeFragment : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
-    private var isEnter = true
     // Список фильмов
     private val filmsDataBase = listOf(
         Film(R.string.avatar_title, R.drawable.avatar, R.string.avatar_desc),
@@ -45,22 +38,7 @@ class HomeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val scene = Scene.getSceneForLayout(home_fragment_root, R.layout.merge_home_screen_content, requireContext())
-        val searchSlide = Slide(Gravity.RIGHT).addTarget(R.id.search_view1)
-        val recyclerSlide = Slide(Gravity.BOTTOM).addTarget(R.id.main_recycler)
-        val customTransition = TransitionSet().apply {
-            duration = 500
-            addTransition(recyclerSlide)
-            addTransition(searchSlide)
-        }
-        if (isEnter) {
-            TransitionManager.go(scene, customTransition)
-            isEnter = false
-        } else {
-            TransitionManager.go(scene)
-        }
-
+        AnimationHelper.performFragmentCircularRevealAnimation(home_fragment_root, requireActivity(), 1)
         search_view.setOnClickListener {
             search_view.isIconified = false
         }
@@ -87,7 +65,6 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-
 
         main_recycler.apply {
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{

@@ -3,6 +3,7 @@ package com.nssaakyan.searchfilm
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -15,20 +16,37 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnItemSelectedListener() {
 
             when (it.itemId) {
+                R.id.home -> {
+                    val tag = "home"
+                    val fragment = checkFragmentExistence(tag)
+                    //В первом параметре, если фрагмент не найден и метод вернул null, то с помощью
+                    //элвиса мы вызываем создание нвого фрагмента
+                    changeFragment( fragment?: HomeFragment(), tag)
+                    true
+                }
                 R.id.favorites -> {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_placeholder, FavoritesFragment())
                         .addToBackStack(null)
                         .commit()
+                    val tag = "favorites"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: FavoritesFragment(), tag)
                     true
                 }
                 R.id.watch_later -> {
-                    Toast.makeText(this, R.string.watch_later, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Посмотреть похже", Toast.LENGTH_SHORT).show()
+                    val tag = "watch_later"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: LaterFragment(), tag)
                     true
                 }
                 R.id.selections -> {
-                    Toast.makeText(this, R.string.selections, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Подборки", Toast.LENGTH_SHORT).show()
+                    val tag = "selections"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: SelectionsFragment(), tag)
                     true
                 }
                 else -> false
@@ -43,16 +61,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun launchDetailsFragment(film: Film) {
-        //Создаем "посылку"
         val bundle = Bundle()
-        //Кладем наш фильм в "посылку"
         bundle.putParcelable("film", film)
-        //Кладем фрагмент с деталями в перменную
         val fragment = DetailsFragment()
-        //Прикрепляем нашу "посылку" к фрагменту
         fragment.arguments = bundle
-
-        //Запускаем фрагмент
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_placeholder, fragment)
@@ -80,5 +92,15 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val TIME_INTERVAL = 2000
+    }
+
+    private fun checkFragmentExistence(tag: String): Fragment? = supportFragmentManager.findFragmentByTag(tag)
+
+    private fun changeFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment, tag)
+            .addToBackStack(null)
+            .commit()
     }
 }
