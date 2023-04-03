@@ -10,6 +10,7 @@ class FilmViewHolder(private val
     private val title = itemView.title
     private val poster = itemView.poster
     private val description = itemView.description
+    private val ratingDonut = itemView.rating_donut
 
 
     fun bind(film: Film) {
@@ -19,5 +20,6 @@ class FilmViewHolder(private val
             .centerCrop()
             .into(poster)
         description.setText(film.description)
+        ratingDonut.setProgress((film.rating * 10).toInt())
     }
 }

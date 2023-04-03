@@ -3,8 +3,6 @@ package com.nssaakyan.searchfilm
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.transition.TransitionManager
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +16,12 @@ class HomeFragment : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
     // Список фильмов
     private val filmsDataBase = listOf(
-        Film(R.string.avatar_title, R.drawable.avatar, R.string.avatar_desc),
-        Film(R.string.puss_title, R.drawable.puss_in_boots, R.string.puss_desc),
-        Film(R.string.elvis_title, R.drawable.elvis, R.string.elvis_desc),
-        Film(R.string.batman_title, R.drawable.batman, R.string.batman_desc),
-        Film(R.string.boite_title, R.drawable.boite_noire, R.string.boite_desc),
-        Film(R.string.train_title, R.drawable.bullet_train, R.string.train_desc),
+        Film(R.string.avatar_title, R.drawable.avatar, R.string.avatar_desc, 7.3f),
+        Film(R.string.puss_title, R.drawable.puss_in_boots, R.string.puss_desc,5.5f),
+        Film(R.string.elvis_title, R.drawable.elvis, R.string.elvis_desc, 8.2f),
+        Film(R.string.batman_title, R.drawable.batman, R.string.batman_desc, 5.6f),
+        Film(R.string.boite_title, R.drawable.boite_noire, R.string.boite_desc, 7.5f),
+        Film(R.string.train_title, R.drawable.bullet_train, R.string.train_desc, 6.9f),
     )
 
     override fun onCreateView(
@@ -38,7 +36,6 @@ class HomeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AnimationHelper.performFragmentCircularRevealAnimation(home_fragment_root, requireActivity(), 1)
         search_view.setOnClickListener {
             search_view.isIconified = false
         }
