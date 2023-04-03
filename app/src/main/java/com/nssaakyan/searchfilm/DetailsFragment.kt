@@ -2,11 +2,13 @@ package com.nssaakyan.searchfilm
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.transition.Slide
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment() {
@@ -17,6 +19,12 @@ class DetailsFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_details, container, false)
     }
+
+    init {
+        enterTransition = Slide(Gravity.END).apply { duration = 200 }
+        returnTransition = Slide(Gravity.END).apply { duration = 200; mode = Slide.MODE_OUT }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

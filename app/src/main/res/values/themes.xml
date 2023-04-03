@@ -10,5 +10,4 @@
         <item name="android:shadowRadius">5</item>
         <item name="android:shadowColor">@color/Bisque</item>
     </style>
-
 </resources>

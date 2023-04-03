@@ -1,14 +1,18 @@
 package com.nssaakyan.searchfilm
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.transition.TransitionManager
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.fragment_home.*
-
 
 class HomeFragment : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
@@ -22,7 +26,6 @@ class HomeFragment : Fragment() {
         Film(R.string.train_title, R.drawable.bullet_train, R.string.train_desc),
     )
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,9 +34,11 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    @SuppressLint("RtlHardcoded")
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        AnimationHelper.performFragmentCircularRevealAnimation(home_fragment_root, requireActivity(), 1)
         search_view.setOnClickListener {
             search_view.isIconified = false
         }
@@ -61,18 +66,14 @@ class HomeFragment : Fragment() {
             }
         })
 
-
         main_recycler.apply {
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
                 override fun click(film: Film) {
                     (requireActivity() as MainActivity).launchDetailsFragment(film)
                 }
             })
-            //Присваиваем адаптер
             adapter = filmsAdapter
-            //Присвои layoutmanager
             layoutManager = LinearLayoutManager(requireContext())
-            //Применяем декоратор для отступов
             val decorator = TopSpacingItemDecoration(8)
             addItemDecoration(decorator)
         }

@@ -2,6 +2,7 @@ package com.nssaakyan.searchfilm
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.film_item.view.*
 
 class FilmViewHolder(private val
@@ -13,7 +14,10 @@ class FilmViewHolder(private val
 
     fun bind(film: Film) {
         title.setText(film.title)
-        poster.setImageResource(film.poster)
+        Glide.with(itemView)
+            .load(film.poster)
+            .centerCrop()
+            .into(poster)
         description.setText(film.description)
     }
 }
