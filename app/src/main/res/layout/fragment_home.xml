@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_fragment_root"
-    android:visibility="invisible"
-    tools:visibility="visible"
     tools:context=".HomeFragment">
 
     <FrameLayout
