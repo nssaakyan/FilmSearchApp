@@ -10,9 +10,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.annotation.RequiresApi
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.nssaakyan.searchfilm.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
+    private lateinit var binding: FragmentHomeBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
     // Список фильмов
     private val filmsDataBase = listOf(
@@ -27,20 +28,20 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("RtlHardcoded")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        search_view.setOnClickListener {
-            search_view.isIconified = false
+        binding.searchView.setOnClickListener {
+            binding.searchView.isIconified = false
         }
 
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             //Этот метод отрабатывает при нажатии кнопки "поиск" на софт клавиатуре
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -63,7 +64,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        main_recycler.apply {
+        binding.mainRecycler.apply {
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
                 override fun click(film: Film) {
                     (requireActivity() as MainActivity).launchDetailsFragment(film)
