@@ -1,8 +1,11 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view.rv_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nssaakyan.searchfilm.view.rv_viewholders.FilmViewHolder
+import com.nssaakyan.searchfilm.R
+import com.nssaakyan.searchfilm.domain.Film
 import kotlinx.android.synthetic.main.film_item.view.*
 
 class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) :

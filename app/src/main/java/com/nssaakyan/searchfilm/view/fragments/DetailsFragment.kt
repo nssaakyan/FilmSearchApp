@@ -1,4 +1,4 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.transition.Slide
+import com.nssaakyan.searchfilm.R
 import com.nssaakyan.searchfilm.databinding.FragmentDetailsBinding
+import com.nssaakyan.searchfilm.domain.Film
 
 class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding

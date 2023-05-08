@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_fragment_root"
-    tools:context=".HomeFragment">
+    tools:context=".view.fragments.HomeFragment">
 
     <FrameLayout
         android:id="@+id/search_view1"

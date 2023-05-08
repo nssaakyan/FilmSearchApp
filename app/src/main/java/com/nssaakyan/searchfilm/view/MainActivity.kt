@@ -1,10 +1,13 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.nssaakyan.searchfilm.R
 import com.nssaakyan.searchfilm.databinding.ActivityMainBinding
+import com.nssaakyan.searchfilm.domain.Film
+import com.nssaakyan.searchfilm.view.fragments.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
