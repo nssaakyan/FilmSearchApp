@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.transition.Slide
+import com.bumptech.glide.Glide
 import com.nssaakyan.searchfilm.R
+import com.nssaakyan.searchfilm.data.ApiConstants
 import com.nssaakyan.searchfilm.databinding.FragmentDetailsBinding
 import com.nssaakyan.searchfilm.domain.Film
 
 class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var film: Film
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,10 +76,13 @@ class DetailsFragment : Fragment() {
         film = arguments?.get("film") as Film
 
         //Устанавливаем заголовок
-        binding.detailsToolbar.setTitle(film.title)
+        binding.detailsToolbar.title = film.title
         //Устанавливаем картинку
-        binding.detailsPoster.setImageResource(film.poster)
+        Glide.with(this)
+            .load(ApiConstants.IMAGES_URL + "w780" + film.poster)
+            .centerCrop()
+            .into(binding.detailsPoster)
         //Устанавливаем описание
-        binding.detailsDescription.setText(film.description)
+        binding.detailsDescription.text = film.description
     }
 }
