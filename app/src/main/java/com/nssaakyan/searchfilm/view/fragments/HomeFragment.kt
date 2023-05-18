@@ -1,4 +1,4 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -10,37 +10,51 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.annotation.RequiresApi
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.nssaakyan.searchfilm.view.rv_adapters.FilmListRecyclerAdapter
+import com.nssaakyan.searchfilm.view.MainActivity
+import com.nssaakyan.searchfilm.R
+import com.nssaakyan.searchfilm.view.rv_adapters.TopSpacingItemDecoration
+import com.nssaakyan.searchfilm.databinding.FragmentHomeBinding
+import com.nssaakyan.searchfilm.domain.Film
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.nssaakyan.searchfilm.viewmodel.HomeFragmentViewModel
 
 class HomeFragment : Fragment() {
+    private val viewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(HomeFragmentViewModel::class.java)
+    }
+    private lateinit var binding: FragmentHomeBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
-    // Список фильмов
-    private val filmsDataBase = listOf(
-        Film(R.string.avatar_title, R.drawable.avatar, R.string.avatar_desc, 7.3f),
-        Film(R.string.puss_title, R.drawable.puss_in_boots, R.string.puss_desc,5.5f),
-        Film(R.string.elvis_title, R.drawable.elvis, R.string.elvis_desc, 8.2f),
-        Film(R.string.batman_title, R.drawable.batman, R.string.batman_desc, 5.6f),
-        Film(R.string.boite_title, R.drawable.boite_noire, R.string.boite_desc, 7.5f),
-        Film(R.string.train_title, R.drawable.bullet_train, R.string.train_desc, 6.9f),
-    )
+    private var filmsDataBase = listOf<Film>()
+        //Используем backing field
+        set(value) {
+            //Если придет такое же значение то мы выходим из метода
+            if (field == value) return
+            //Если прило другое значение, то кладем его в переменную
+            field = value
+            //Обновляем RV адаптер
+            filmsAdapter.addItems(field as MutableList<Film>)
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("RtlHardcoded")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        search_view.setOnClickListener {
-            search_view.isIconified = false
+
+        binding.searchView.setOnClickListener {
+            binding.searchView.isIconified = false
         }
 
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             //Этот метод отрабатывает при нажатии кнопки "поиск" на софт клавиатуре
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -63,8 +77,8 @@ class HomeFragment : Fragment() {
             }
         })
 
-        main_recycler.apply {
-            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
+        binding.mainRecycler.apply {
+            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
                 override fun click(film: Film) {
                     (requireActivity() as MainActivity).launchDetailsFragment(film)
                 }
@@ -75,6 +89,8 @@ class HomeFragment : Fragment() {
             addItemDecoration(decorator)
         }
     //Кладем нашу БД в RV
-    filmsAdapter.addItems(filmsDataBase as MutableList<Film>)
+        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+            filmsDataBase = it
+        })
     }
 }

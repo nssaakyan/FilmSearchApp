@@ -1,4 +1,4 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view.rv_adapters
 
 import android.content.res.Resources
 import android.graphics.Rect

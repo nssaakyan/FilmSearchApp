@@ -1,9 +1,10 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view.customviews
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.nssaakyan.searchfilm.R
 
 class RatingDonutView @JvmOverloads constructor
     (context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {

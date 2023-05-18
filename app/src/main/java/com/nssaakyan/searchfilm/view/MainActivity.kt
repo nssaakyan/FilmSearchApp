@@ -1,19 +1,23 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
-
+import com.nssaakyan.searchfilm.R
+import com.nssaakyan.searchfilm.databinding.ActivityMainBinding
+import com.nssaakyan.searchfilm.domain.Film
+import com.nssaakyan.searchfilm.view.fragments.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
-        bottom_navigation.setOnItemSelectedListener() {
+        binding.bottomNavigation.setOnItemSelectedListener() {
 
             when (it.itemId) {
                 R.id.home -> {

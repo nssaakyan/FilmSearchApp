@@ -1,4 +1,4 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.view.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -7,17 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.airbnb.lottie.LottieAnimationView
-import kotlinx.android.synthetic.main.fragment_later.*
-import kotlinx.android.synthetic.main.fragment_selections.*
+import com.nssaakyan.searchfilm.databinding.FragmentSelectionsBinding
 
 class SelectionsFragment : Fragment() {
+    private lateinit var binding: FragmentSelectionsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_selections, container, false)
+    ): View {
+        binding = FragmentSelectionsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

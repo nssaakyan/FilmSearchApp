@@ -1,4 +1,4 @@
-package com.nssaakyan.searchfilm
+package com.nssaakyan.searchfilm.domain
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

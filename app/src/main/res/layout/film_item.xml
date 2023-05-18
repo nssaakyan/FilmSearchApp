@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height">
 
-    <com.nssaakyan.searchfilm.RatingDonutView
+    <com.nssaakyan.searchfilm.view.customviews.RatingDonutView
         android:id="@+id/rating_donut"
         android:layout_width="@dimen/rating"
         android:layout_height="@dimen/rating"
