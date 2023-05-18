@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
                 //Фильтруем список на поиск подходящих сочетаний
                 val result = filmsDataBase.filter {
                     //Чтобы все работало правильно, нужно и запрос, и имя фильма приводить к нижнему регистру
-                    requireContext().resources.getString(it.title).lowercase().startsWith(newText.lowercase())
+                    it.title.lowercase().startsWith(newText.lowercase())
                 }
                 //Добавляем в адаптер
                 filmsAdapter.addItems(result as MutableList<Film>)
